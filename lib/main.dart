@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Calculation Practice',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Calculation Practice'),
     );
   }
 }
@@ -55,18 +56,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  static const int mode_add = 1;
+  static const int mode_sub = 2;
+  static const int mode_mul = 3;
+  static const int mode_div = 4;
+  int mode = 1; //1:足し算/2:引き算/3:掛け算/4:割り算
+  int first_term = 1;
+  int second_term = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -106,20 +102,114 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              'You choose the practice mode',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Column(children: [
+                  const Text("Mode"),
+                    DropdownButton(
+                      items: const[
+                        DropdownMenuItem(
+                          value: mode_add,
+                          child: Text('足し算'),
+                        ),
+                        DropdownMenuItem(
+                          value: mode_sub,
+                          child: Text('引き算'),
+                        ),
+                        DropdownMenuItem(
+                          value: mode_mul,
+                          child: Text('掛け算'),
+                        ),
+                        DropdownMenuItem(
+                          value: mode_div,
+                          child: Text('割り算'),
+                        ),
+                      ],
+                      value: mode,
+                      onChanged: (int? value){
+                        setState((){
+                          mode = value!;
+                        });
+                      }
+                  ),
+                ],),
+                Column(children: [
+                  const Text("Term1 digits"),
+                  DropdownButton(
+                      items: const[
+                        DropdownMenuItem(
+                          value: 1,
+                          child: Text('1'),
+                        ),
+                        DropdownMenuItem(
+                          value: 2,
+                          child: Text('2'),
+                        ),
+                        DropdownMenuItem(
+                          value: 3,
+                          child: Text('3'),
+                        ),
+                        DropdownMenuItem(
+                          value: 4,
+                          child: Text('4'),
+                        ),
+                      ],
+                      value: first_term,
+                      onChanged: (int? value){
+                        setState((){
+                          first_term = value!;
+                        });
+                      }
+                  ),
+                ],),
+                Column(children: [
+                  const Text("Term2 digits"),
+                  DropdownButton(
+                      items: const[
+                        DropdownMenuItem(
+                          value: 1,
+                          child: Text('1'),
+                        ),
+                        DropdownMenuItem(
+                          value: 2,
+                          child: Text('2'),
+                        ),
+                        DropdownMenuItem(
+                          value: 3,
+                          child: Text('3'),
+                        ),
+                        DropdownMenuItem(
+                          value: 4,
+                          child: Text('4'),
+                        ),
+                      ],
+                      value: second_term,
+                      onChanged: (int? value){
+                        setState((){
+                          second_term = value!;
+                        });
+                      }
+                    ),
+                ],),
+              ],
             ),
+            TextButton(
+              onPressed: (){
+                Fluttertoast.showToast(msg: "Pressed Start" + "/" + mode.toString() + "/" + first_term.toString() + "/" + second_term.toString());
+              },
+              child: Text("Start"),
+            )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: const Icon(Icons.add),
+      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
