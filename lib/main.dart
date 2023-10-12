@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:practicecalc/practice.dart';
+import './settings.dart';
 
 void main() {
   runApp(const MyApp());
@@ -60,9 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
   static const int mode_sub = 2;
   static const int mode_mul = 3;
   static const int mode_div = 4;
-  int mode = 1; //1:足し算/2:引き算/3:掛け算/4:割り算
-  int first_term = 1;
-  int second_term = 2;
+  int mode = Settings.mode; //1:足し算/2:引き算/3:掛け算/4:割り算
+  int first_term = Settings.first_term;
+  int second_term = Settings.second_term;
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                       value: mode,
                       onChanged: (int? value){
+                        Settings.mode = value!;
                         setState((){
                           mode = value!;
                         });
@@ -159,6 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                       value: first_term,
                       onChanged: (int? value){
+                        Settings.first_term = value!;
                         setState((){
                           first_term = value!;
                         });
@@ -188,6 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                       value: second_term,
                       onChanged: (int? value){
+                        Settings.second_term = value!;
                         setState((){
                           second_term = value!;
                         });
@@ -198,7 +203,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextButton(
               onPressed: (){
-                Fluttertoast.showToast(msg: "Pressed Start" + "/" + mode.toString() + "/" + first_term.toString() + "/" + second_term.toString());
+                // Fluttertoast.showToast(msg: "Pressed Start" + "/" + mode.toString() + "/" + first_term.toString() + "/" + second_term.toString());
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Practice())
+                );
               },
               child: Text("Start"),
             )
