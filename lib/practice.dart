@@ -21,7 +21,6 @@ class _Practice extends State<Practice>{
   @override
   void initState(){
     super.initState();
-
   }
 
   void input_numeric(int num){
@@ -31,8 +30,12 @@ class _Practice extends State<Practice>{
   }
 
   void create_question(){
+
+    clear_answer();
+
     int term1 = (math.Random().nextInt((math.pow(10, first_term).toInt() - 1)  - (math.pow(10, first_term-1).toInt()) + 1)) + math.pow(10, first_term-1).toInt();
     int term2 = (math.Random().nextInt((math.pow(10, second_term).toInt() - 1)  - (math.pow(10, second_term-1).toInt()) + 1)) + math.pow(10, second_term-1).toInt();
+
     switch(mode){
       case 1:
         correct_answer = term1 + term2;
@@ -61,6 +64,20 @@ class _Practice extends State<Practice>{
     }
   }
 
+  void input_answer(){
+    if(!question.contains(("="))) {
+      setState(() {
+        question = question + " = " + correct_answer.toString();
+      });
+    }
+  }
+
+  void clear_answer(){
+    setState(() {
+      answer = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -68,7 +85,7 @@ class _Practice extends State<Practice>{
         title: const Text("Practice"),
       ),
       body: Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -77,39 +94,39 @@ class _Practice extends State<Practice>{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextButton(onPressed: (){create_question();}, child: const Text("START")),
+                OutlinedButton(onPressed: (){create_question();}, child: const Text("START")),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextButton(onPressed: (){input_numeric(1);}, child: const Text("1")),
-                TextButton(onPressed: (){input_numeric(2);}, child: const Text("2")),
-                TextButton(onPressed: (){input_numeric(3);}, child: const Text("3")),
+                OutlinedButton(onPressed: (){input_numeric(1);}, child: const Text("1")),
+                OutlinedButton(onPressed: (){input_numeric(2);}, child: const Text("2")),
+                OutlinedButton(onPressed: (){input_numeric(3);}, child: const Text("3")),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextButton(onPressed: (){input_numeric(4);}, child: const Text("4")),
-                TextButton(onPressed: (){input_numeric(5);}, child: const Text("5")),
-                TextButton(onPressed: (){input_numeric(6);}, child: const Text("6")),
+                OutlinedButton(onPressed: (){input_numeric(4);}, child: const Text("4")),
+                OutlinedButton(onPressed: (){input_numeric(5);}, child: const Text("5")),
+                OutlinedButton(onPressed: (){input_numeric(6);}, child: const Text("6")),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextButton(onPressed: (){input_numeric(7);}, child: const Text("7")),
-                TextButton(onPressed: (){input_numeric(8);}, child: const Text("8")),
-                TextButton(onPressed: (){input_numeric(9);}, child: const Text("9")),
+                OutlinedButton(onPressed: (){input_numeric(7);}, child: const Text("7")),
+                OutlinedButton(onPressed: (){input_numeric(8);}, child: const Text("8")),
+                OutlinedButton(onPressed: (){input_numeric(9);}, child: const Text("9")),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextButton(onPressed: null, child: const Text("AC")),
-                TextButton(onPressed: (){input_numeric(0);}, child: const Text("0")),
-                TextButton(onPressed: null, child: const Text("ANS")),
+                OutlinedButton(onPressed: (){clear_answer();}, child: const Text("AC")),
+                OutlinedButton(onPressed: (){input_numeric(0);}, child: const Text("0")),
+                OutlinedButton(onPressed: (){input_answer();}, child: const Text("ANS")),
               ],
             ),
           ],
