@@ -80,6 +80,10 @@ class _Practice extends State<Practice>{
 
   @override
   Widget build(BuildContext context){
+    double _deviceWidth = MediaQuery.of(context).size.width;
+    double _deviceHeight = MediaQuery.of(context).size.height;
+    print("width:$_deviceWidth");
+    print("height:$_deviceHeight");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Practice"),
@@ -89,12 +93,12 @@ class _Practice extends State<Practice>{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(question),
-            Text ("$answer"),
+            Text(question,style: TextStyle(fontSize: 32)),
+            Text ("$answer",style: TextStyle(fontSize: 32)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                OutlinedButton(onPressed: (){create_question();}, child: const Text("START")),
+                OutlinedButton(onPressed: (){create_question();}, child: const Text("NEXT")),
               ],
             ),
             Row(
